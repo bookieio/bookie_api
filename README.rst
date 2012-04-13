@@ -1,23 +1,35 @@
-This file requires editing
-==========================
+Bookie Api and Command Line Client
+===================================
 
-Note to the author: Please add something informative to this README *before*
-releasing your software, as `a little documentation goes a long way`_.  Both
-README.rst (this file) and NEWS.txt (release notes) will be included in your
-package metadata which gets displayed in the PyPI page for your project.
+This is a python implementation of the `Bookie`_ api and a command line client
+to interact with our Bookie installtion.
 
-You can take a look at the README.txt of other projects, such as repoze.bfg
-(http://bfg.repoze.org/trac/browser/trunk/README.txt) for some ideas.
+Commands
+--------
+The initial commands are admin related I need to help run and operate the
+https://bmark.us installation.
 
-.. _`a little documentation goes a long way`: http://www.martinaspeli.net/articles/a-little-documentation-goes-a-long-way
 
-Credits
--------
+Getting Started
+---------------
+You need to create a `.bookierc` in your home directory with your username and
+api key for the site.
 
-- `Distribute`_
-- `Buildout`_
-- `modern-package-template`_
+::
 
-.. _Buildout: http://www.buildout.org/
-.. _Distribute: http://pypi.python.org/pypi/distribute
-.. _`modern-package-template`: http://pypi.python.org/pypi/modern-package-template
+    [main]
+    username=admin
+    api_key=12345678
+
+Commands
+--------
+
+::
+
+    # list the users and their number of invites
+    $ bookie invite list
+
+    # set 'someuser' to have 10 invites
+    $ bookie invite set -u someuser -i 10
+
+.. _Bookie: http://github.com/mitechie/Bookie
