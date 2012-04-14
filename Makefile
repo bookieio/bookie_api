@@ -36,7 +36,7 @@ clean_venv:
 	rm -rf lib include local bin
 
 develop: lib/python*/site-packages/bookie-api.egg-link
-lib/python*/site-packages/bookie_api.egg-link:
+lib/python*/site-packages/bookie-api.egg-link:
 	$(PY) setup.py develop
 
 
