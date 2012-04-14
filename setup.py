@@ -42,6 +42,6 @@ setup(name='bookie_api',
     extras_require={'test': tests_require},
     entry_points={
         'console_scripts':
-            ['bookie_api=bookie_api:client.main']
+            ['bookie=bookie_api:client.main']
     }
 )

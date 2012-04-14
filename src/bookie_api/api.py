@@ -33,3 +33,19 @@ class AdminApi(object):
         users = data.get('users')
         for u in users:
             print "{0}\t{1}".format(u[1], u[0])
+
+    def invite_set(self, username, invite_ct):
+        """Set the number of invites a user has available."""
+        segment = "accounts/invites/{0}/{1}".format(
+            username,
+            invite_ct
+        )
+        req = requests.post(self._build_url(segment))
+        if req.status_code == 200:
+            resp = json.loads(req.text)
+            updated_user = resp
+            print "{0} updated to {1} invites.".format(
+                updated_user.get('username'),
+                updated_user.get('invite_ct'))
+        else:
+            raise LookupError('Invite set request died with: ' + str(req))

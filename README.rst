@@ -2,7 +2,7 @@ Bookie Api and Command Line Client
 ===================================
 
 This is a python implementation of the `Bookie`_ api and a command line client
-to interact with our Bookie installtion.
+to interact with our Bookie installation.
 
 Commands
 --------
@@ -25,6 +25,11 @@ Commands
 --------
 
 ::
+
+    # check out the help for each command level
+    $ bookie --help
+    $ bookie invite --help
+    $ bookie invite set --help
 
     # list the users and their number of invites
     $ bookie invite list

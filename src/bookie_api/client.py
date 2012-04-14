@@ -53,13 +53,17 @@ def parse_config(config):
 
 
 def invite_list_callable(args):
+    """Handle the invite list call."""
     cfg = parse_config(fetch_rc_file())
     api = AdminApi(cfg.username, cfg.api_key)
     api.invite_status()
 
 
 def invite_set_callable(args):
-    print('SET SOMETHING')
+    """Handle the invite set call to add invites to a user."""
+    cfg = parse_config(fetch_rc_file())
+    api = AdminApi(cfg.username, cfg.api_key)
+    api.invite_set(args.username, args.invite_ct)
 
 
 def parse_args():
@@ -101,18 +105,20 @@ def parse_args():
         action='store',
         default=None,
         help='The username to set an invite count to.')
+    invite_set.add_argument('--invites', '-i',
+        dest='invite_ct',
+        action='store',
+        default=None,
+        help='How many invites to give this user.')
     invite_set.set_defaults(func=invite_set_callable)
 
     args = parser.parse_args()
     return args
 
 def main():
-    cfg = parse_config(fetch_rc_file())
-    api = AdminApi(cfg.username, cfg.api_key)
-    api.invite_status()
-
-if __name__ == "__main__":
     args = parse_args()
     args.func(args)
 
 
+if __name__ == "__main__":
+    main()
