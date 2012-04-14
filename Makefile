@@ -4,6 +4,9 @@ PY := bin/python
 PEP8 := bin/pep8
 NOSE := bin/nosetests
 
+.PHONY: clean_all
+clean_all: clean_venv
+
 # ###########
 # Tests rule!
 # ###########
