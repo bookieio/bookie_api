@@ -21,7 +21,7 @@ $(NOSE):
 # INSTALL
 # #######
 .PHONY: all
-all: venv deps
+all: venv deps develop
 
 .PHONY: deps
 deps: venv
