@@ -19,7 +19,7 @@ class AdminApi(object):
         """
         self.apikey = apikey
         self.username = username
-        self.server = 'https://bmark.us/api/v1/a/'
+        self.server = 'https://bmark.us/api/v1/a'
 
     def _build_url(self, segment):
         """Generate the api url given the call we want to do."""
