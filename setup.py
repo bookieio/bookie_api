@@ -14,8 +14,9 @@ install_requires = [
     'requests',
 ]
 
-test_requires = [
+tests_require = [
     'nose',
+    'pep8',
 ]
 
 
@@ -32,10 +33,12 @@ setup(name='bookie_api',
     url='http://docs.bmark.us',
     license='AGPL',
     packages=find_packages('src'),
-    package_dir = {'': 'src'},include_package_data=True,
+    package_dir = {'': 'src'},
+    include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
-    tests_require=test_requires,
+    tests_require=tests_require,
+    extras_require={'test': tests_require},
     entry_points={
         'console_scripts':
             ['bookie_api=bookie_api:client.main']

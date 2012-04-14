@@ -1,6 +1,7 @@
 # Makefile to help automate tasks
 WD := $(shell pwd)
 PY := bin/python
+PIP := bin/pip
 PEP8 := bin/pep8
 NOSE := bin/nosetests
 
@@ -15,7 +16,7 @@ test: venv develop $(NOSE)
 	$(NOSE) --with-id -s -x src/bookie_api/tests
 
 $(NOSE):
-	$(PY) setup.py test
+	$(PIP) install nose pep8
 
 # #######
 # INSTALL
