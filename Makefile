@@ -16,7 +16,7 @@ test: venv develop $(NOSE)
 	$(NOSE) --with-id -s -x src/bookie_api/tests
 
 $(NOSE):
-	$(PIP) install nose pep8
+	$(PIP) install nose pep8 coverage
 
 # #######
 # INSTALL

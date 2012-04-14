@@ -15,6 +15,7 @@ install_requires = [
 ]
 
 tests_require = [
+    'coverage',
     'nose',
     'pep8',
 ]
