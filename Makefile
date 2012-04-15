@@ -45,3 +45,13 @@ lib/python*/site-packages/bookie-api.egg-link:
 # Development
 # ###########
 
+
+# ###########
+# Deploy
+# ###########
+.PHONY: dist
+dist:
+	$(PY) setup.py sdist
+
+upload:
+	$(PY) setup.py sdist upload

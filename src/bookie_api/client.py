@@ -14,9 +14,9 @@ from os.path import expanduser
 from os.path import exists as path_exists
 
 from api import AdminApi
+from bookie_api import VERSION
 
 RCFILE = expanduser('~/.bookierc')
-VERSION = '0.4.0'
 
 class BookieConfig(object):
     def __init__(self, rcfile):
