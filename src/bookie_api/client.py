@@ -15,6 +15,7 @@ from os.path import exists as path_exists
 
 from api import AdminApi
 from bookie_api import VERSION
+from bookie_api import commands
 
 RCFILE = expanduser('~/.bookierc')
 
@@ -52,20 +53,6 @@ def parse_config(config):
     return cfg
 
 
-def invite_list_callable(args):
-    """Handle the invite list call."""
-    cfg = parse_config(fetch_rc_file())
-    api = AdminApi(cfg.username, cfg.api_key)
-    api.invite_status()
-
-
-def invite_set_callable(args):
-    """Handle the invite set call to add invites to a user."""
-    cfg = parse_config(fetch_rc_file())
-    api = AdminApi(cfg.username, cfg.api_key)
-    api.invite_set(args.username, args.invite_ct)
-
-
 def parse_args():
     """Handle building what we want to do based on the arguments.
 
@@ -96,7 +83,7 @@ def parse_args():
         help='List the users and their invite counts.')
     invite_list.add_argument('-u', '--username', action='store', default=None,
             help='Pull the invite count for the specified user.')
-    invite_list.set_defaults(func=invite_list_callable)
+    invite_list.set_defaults(func=commands.invite_list)
 
     invite_set = invites.add_parser('set',
         help='Set the number of invites a user has')
@@ -110,14 +97,16 @@ def parse_args():
         action='store',
         default=None,
         help='How many invites to give this user.')
-    invite_set.set_defaults(func=invite_set_callable)
+    invite_set.set_defaults(func=commands.invite_set)
 
     args = parser.parse_args()
     return args
 
+
 def main():
     args = parse_args()
-    args.func(args)
+    cfg = parse_config(fetch_rc_file())
+    args.func(cfg, args)
 
 
 if __name__ == "__main__":
