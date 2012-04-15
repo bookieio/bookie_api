@@ -53,5 +53,10 @@ lib/python*/site-packages/bookie-api.egg-link:
 dist:
 	$(PY) setup.py sdist
 
+.PHONY: upload
 upload:
 	$(PY) setup.py sdist upload
+
+.PHONY: version_update
+version_update:
+	$(EDITOR) setup.py src/bookie_api/__init__.py
