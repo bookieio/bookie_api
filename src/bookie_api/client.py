@@ -19,6 +19,7 @@ from bookie_api import commands
 
 RCFILE = expanduser('~/.bookierc')
 
+
 class BookieConfig(object):
     def __init__(self, rcfile):
         self.cfg = ConfigParser()
@@ -74,6 +75,9 @@ def parse_args():
 
     # add an invite subcommand
     invite_help = "Get or set invite data."
+
+    parser_ping = subparsers.add_parser('ping')
+    parser_ping.set_defaults(func=commands.ping)
 
     # create the parser for the "foo" command
     parser_invites = subparsers.add_parser('invite')

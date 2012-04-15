@@ -1,6 +1,19 @@
 from bookie_api.api import AdminApi
+from bookie_api.api import UserApi
 
 
+# #############
+# User Commands
+# #############
+def ping(cfg, args):
+    """Perform a ping to check config."""
+    api = UserApi(cfg.username, cfg.api_key)
+    api.ping()
+
+
+# ###############
+# Admin Commands
+# ###############
 def invite_list(cfg, args):
     """Handle the invite list call."""
     api = AdminApi(cfg.username, cfg.api_key)

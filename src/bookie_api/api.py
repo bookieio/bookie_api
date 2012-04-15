@@ -49,3 +49,36 @@ class AdminApi(object):
                 updated_user.get('invite_ct'))
         else:
             raise LookupError('Invite set request died with: ' + str(req))
+
+
+class UserApi(object):
+    """Wrapper for User specific Api calls."""
+    apikey = None
+    server = None
+    uesrname = None
+
+    def __init__(self, username, apikey):
+        """Init the admin handler. Apikey is required.
+
+        :param apikey: string that's the user's api key
+
+        """
+        self.apikey = apikey
+        self.username = username
+        self.server = 'https://bmark.us/api/v1/'
+
+    def _build_url(self, segment):
+        """Generate the api url given the call we want to do."""
+        return "{0}/{1}?api_key={2}".format(self.server, segment, self.apikey)
+
+    def ping(self):
+        """Fetch the list of users and their invite counts."""
+        segment = "{0}/ping".format(self.username)
+        req = requests.get(self._build_url(segment))
+        data = json.loads(req.text)
+        if data.get('success', False):
+            print "Ping Results: " + data.get('message',
+                'failure to load message from response')
+        else:
+            print "Ping Results ERROR: " + data.get('error',
+                'failure to load message from response')

@@ -31,6 +31,9 @@ Commands
     $ bookie invite --help
     $ bookie invite set --help
 
+    # check your configuration by making a ping request
+    $ bookie ping
+
     # list the users and their number of invites
     $ bookie invite list
 
