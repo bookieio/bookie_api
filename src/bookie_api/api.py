@@ -8,10 +8,10 @@ import requests
 class AdminApi(object):
     """Wrapper for Admin specific Api calls."""
     apikey = None
-    server = None
-    uesrname = None
+    apiurl = None
+    username = None
 
-    def __init__(self, username, apikey):
+    def __init__(self, apiurl, username, apikey):
         """Init the admin api handler. Apikey is required.
 
         :param apikey: string that's the admin api key
@@ -19,11 +19,12 @@ class AdminApi(object):
         """
         self.apikey = apikey
         self.username = username
-        self.server = 'https://bmark.us/api/v1/a'
+        apiurl = "{apiurl}/a".format(apiurl=apiurl)
+        self.apiurl = apiurl
 
     def _build_url(self, segment):
         """Generate the api url given the call we want to do."""
-        return "{0}/{1}?api_key={2}".format(self.server, segment, self.apikey)
+        return "{0}/{1}?api_key={2}".format(self.apiurl, segment, self.apikey)
 
     def invite_status(self):
         """Fetch the list of users and their invite counts."""
@@ -54,10 +55,10 @@ class AdminApi(object):
 class UserApi(object):
     """Wrapper for User specific Api calls."""
     apikey = None
-    server = None
-    uesrname = None
+    apiurl = None
+    username = None
 
-    def __init__(self, username, apikey):
+    def __init__(self, apiurl, username, apikey):
         """Init the admin handler. Apikey is required.
 
         :param apikey: string that's the user's api key
@@ -65,11 +66,11 @@ class UserApi(object):
         """
         self.apikey = apikey
         self.username = username
-        self.server = 'https://bmark.us/api/v1/'
+        self.apiurl = apiurl
 
     def _build_url(self, segment):
         """Generate the api url given the call we want to do."""
-        return "{0}/{1}?api_key={2}".format(self.server, segment, self.apikey)
+        return "{0}/{1}?api_key={2}".format(self.apiurl, segment, self.apikey)
 
     def ping(self):
         """Fetch the list of users and their invite counts."""

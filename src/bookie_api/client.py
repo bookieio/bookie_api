@@ -13,7 +13,6 @@ from ConfigParser import MissingSectionHeaderError
 from os.path import expanduser
 from os.path import exists as path_exists
 
-from api import AdminApi
 from bookie_api import VERSION
 from bookie_api import commands
 
@@ -21,13 +20,20 @@ RCFILE = expanduser('~/.bookierc')
 
 
 class BookieConfig(object):
+    attrs = ['api_key', 'api_url', 'username']
+
     def __init__(self, rcfile):
         self.cfg = ConfigParser()
         try:
             self.cfg.read(rcfile)
-        except MissingSectionHeaderError, exc:
+        except MissingSectionHeaderError:
             raise SyntaxError(
                 'Make sure your rc file starts with [main] section heading.')
+
+        assert set(self.attrs).issubset(
+            set([c[0] for c in self.cfg.items('main')])), \
+            'You must supply {0} in your .bookierc config file'.format(
+                ", ".join(self.attrs))
 
     def __getattr__(self, attr):
         return self.cfg.get('main', attr)
@@ -73,13 +79,10 @@ def parse_args():
 
     subparsers = parser.add_subparsers(help='sub-command help')
 
-    # add an invite subcommand
-    invite_help = "Get or set invite data."
-
     parser_ping = subparsers.add_parser('ping')
     parser_ping.set_defaults(func=commands.ping)
 
-    # create the parser for the "foo" command
+    # add an invite subcommand
     parser_invites = subparsers.add_parser('invite')
     invites = parser_invites.add_subparsers()
 
