@@ -24,3 +24,9 @@ def invite_set(cfg, args):
     """Handle the invite set call to add invites to a user."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
     api.invite_set(args.username, args.invite_ct)
+
+
+def import_list(cfg, args):
+    """Fetch some data """
+    api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
+    api.import_list()

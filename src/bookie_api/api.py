@@ -51,6 +51,18 @@ class AdminApi(object):
         else:
             raise LookupError('Invite set request died with: ' + str(req))
 
+    def import_list(self):
+        """Fetch the list of imports."""
+        segment = "imports/list"
+        req = requests.get(self._build_url(segment))
+        data = json.loads(req.text)
+        imports = data.get('imports')
+        for i in imports:
+            print "{0}\t{1}\t{2}".format(
+                i['status'],
+                i['username'],
+                i['file_path'])
+
 
 class UserApi(object):
     """Wrapper for User specific Api calls."""

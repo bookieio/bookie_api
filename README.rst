@@ -12,14 +12,15 @@ https://bmark.us installation.
 
 Getting Started
 ---------------
-You need to create a `.bookierc` in your home directory with your username and
-api key for the site.
+You need to create a `.bookierc` in your home directory with your username,
+api key, and api url for the site.
 
 ::
 
     [main]
     username=admin
     api_key=12345678
+    api_url=https://bmark.us/api/v1
 
 Commands
 --------
