@@ -4,6 +4,8 @@
 import json
 import requests
 
+from prettytable import PrettyTable
+
 
 class AdminApi(object):
     """Wrapper for Admin specific Api calls."""
@@ -26,14 +28,31 @@ class AdminApi(object):
         """Generate the api url given the call we want to do."""
         return "{0}/{1}?api_key={2}".format(self.apiurl, segment, self.apikey)
 
+    @classmethod
+    def _build_table(cls, *args):
+        """Create a pretty table with the list of fields supplied.
+
+        :param fields: list of columns of data
+
+        """
+        table = PrettyTable(args)
+        table.border = False
+        table.header = False
+        table.align = 'l'
+
+        return table
+
     def invite_status(self):
         """Fetch the list of users and their invite counts."""
         segment = "accounts/invites"
         req = requests.get(self._build_url(segment))
         data = json.loads(req.text)
         users = data.get('users')
+        t = self._build_table('invite_ct', 'username')
         for u in users:
-            print "{0}\t{1}".format(u[1], u[0])
+            t.add_row([u[1], u[0]])
+
+        print(t)
 
     def invite_set(self, username, invite_ct):
         """Set the number of invites a user has available."""
@@ -57,11 +76,12 @@ class AdminApi(object):
         req = requests.get(self._build_url(segment))
         data = json.loads(req.text)
         imports = data.get('imports')
+
+        t = self._build_table('status', 'username', 'file_path')
         for i in imports:
-            print "{0}\t{1}\t{2}".format(
-                i['status'],
-                i['username'],
-                i['file_path'])
+            t.add_row([i['status'], i['username'], i['file_path']])
+
+        print(t)
 
 
 class UserApi(object):

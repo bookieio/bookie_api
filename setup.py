@@ -5,13 +5,14 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 
 
-version = '0.4.1'
+version = '0.4.2'
 
 install_requires = [
     # List your project dependencies here.
     # For more details, see:
     # http://packages.python.org/distribute/setuptools.html#declaring-dependencies
     'requests',
+    'PrettyTable',
 ]
 
 tests_require = [
