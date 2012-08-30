@@ -30,3 +30,9 @@ def import_list(cfg, args):
     """Fetch some data """
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
     api.import_list()
+
+
+def user_list(cfg, args):
+    """List the users in the system."""
+    api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
+    api.user_list()

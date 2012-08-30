@@ -83,6 +83,19 @@ class AdminApi(object):
 
         print(t)
 
+    def user_list(self):
+        """Fetch the list of users."""
+        segment = "users/list"
+        req = requests.get(self._build_url(segment))
+        data = json.loads(req.text)
+        users = data.get('users')
+
+        t = self._build_table('username', 'name', 'email')
+        for i in users:
+            t.add_row([i['username'], i['name'], i['email']])
+
+        print(t)
+
 
 class UserApi(object):
     """Wrapper for User specific Api calls."""

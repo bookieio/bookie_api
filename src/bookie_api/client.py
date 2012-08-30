@@ -106,12 +106,19 @@ def parse_args():
         help='How many invites to give this user.')
     invite_set.set_defaults(func=commands.invite_set)
 
-    # add an import subcommand
+    # Add an import subcommand.
     parser_imports = subparsers.add_parser('import')
     imports = parser_imports.add_subparsers()
     import_list = imports.add_parser('list',
         help='List the imports.')
     import_list.set_defaults(func=commands.import_list)
+
+    # Add space for a user subcommand.
+    parser_users = subparsers.add_parser('user')
+    users = parser_users.add_subparsers()
+    user_list = users.add_parser('list',
+        help='List the users.')
+    user_list.set_defaults(func=commands.user_list)
 
     args = parser.parse_args()
     return args
