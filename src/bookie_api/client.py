@@ -116,9 +116,26 @@ def parse_args():
     # Add space for a user subcommand.
     parser_users = subparsers.add_parser('user')
     users = parser_users.add_subparsers()
+
     user_list = users.add_parser('list',
         help='List the users.')
     user_list.set_defaults(func=commands.user_list)
+
+    users_add = users.add_parser('add',
+        help='Add a new user to the system manually.')
+    users_add.add_argument('--username', '-u',
+        dest='username',
+        action='store',
+        default=None,
+        required=True,
+        help='The username of the new user.')
+    users_add.add_argument('--email', '-e',
+        dest='email',
+        action='store',
+        default=None,
+        required=True,
+        help='The email address for the new user.')
+    users_add.set_defaults(func=commands.user_add)
 
     args = parser.parse_args()
     return args

@@ -96,6 +96,23 @@ class AdminApi(object):
 
         print(t)
 
+    def new_user(self, username, email):
+        """Handle adding a new user to the system.
+
+        """
+        segment = "users/add"
+        req = requests.post(self._build_url(segment), {
+            'username': username,
+            'email': email,
+        })
+        data = json.loads(req.text)
+
+        if req.status_code != 200:
+            print data.get('error')
+        else:
+            user = data
+            print user['username'], user['random_pass']
+
 
 class UserApi(object):
     """Wrapper for User specific Api calls."""

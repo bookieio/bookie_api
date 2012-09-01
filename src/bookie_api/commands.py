@@ -36,3 +36,8 @@ def user_list(cfg, args):
     """List the users in the system."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
     api.user_list()
+
+def user_add(cfg, args):
+    """Add a new user to the system."""
+    api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
+    api.new_user(args.username, args.email)
