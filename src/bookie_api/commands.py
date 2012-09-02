@@ -41,3 +41,8 @@ def user_add(cfg, args):
     """Add a new user to the system."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
     api.new_user(args.username, args.email)
+
+def del_user(cfg, args):
+    """Remove a user from the system."""
+    api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
+    api.del_user(args.username)

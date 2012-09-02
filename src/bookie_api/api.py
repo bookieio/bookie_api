@@ -113,6 +113,18 @@ class AdminApi(object):
             user = data
             print user['username'], user['random_pass']
 
+    def del_user(self, username):
+        """Remove a user from the system via the admin api."""
+        segment = "users/delete/{0}".format(username)
+        req = requests.delete(self._build_url(segment))
+        data = json.loads(req.text)
+
+        if req.status_code != 200:
+            print data.get('error')
+        else:
+            print data['message']
+
+
 
 class UserApi(object):
     """Wrapper for User specific Api calls."""

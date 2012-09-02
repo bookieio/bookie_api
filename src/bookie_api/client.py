@@ -137,6 +137,16 @@ def parse_args():
         help='The email address for the new user.')
     users_add.set_defaults(func=commands.user_add)
 
+    users_del = users.add_parser('delete',
+        help='Remove a user from the system via admin api.')
+    users_del.add_argument('--username', '-u',
+        dest='username',
+        action='store',
+        default=None,
+        required=True,
+        help='The username of the new user.')
+    users_del.set_defaults(func=commands.del_user)
+
     args = parser.parse_args()
     return args
 
