@@ -14,6 +14,12 @@ def ping(cfg, args):
 # ###############
 # Admin Commands
 # ###############
+def to_readable(cfg, args):
+    """Check the list of urls we need to readable parse still."""
+    api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
+    api.to_readable()
+
+
 def invite_list(cfg, args):
     """Handle the invite list call."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
@@ -37,10 +43,12 @@ def user_list(cfg, args):
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
     api.user_list()
 
+
 def user_add(cfg, args):
     """Add a new user to the system."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
     api.new_user(args.username, args.email)
+
 
 def del_user(cfg, args):
     """Remove a user from the system."""

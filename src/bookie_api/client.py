@@ -147,6 +147,13 @@ def parse_args():
         help='The username of the new user.')
     users_del.set_defaults(func=commands.del_user)
 
+    # add an invite subcommand
+    parser_readable = subparsers.add_parser('readable')
+    readable = parser_readable.add_subparsers()
+    readable_todo = readable.add_parser('todo',
+        help='List of the urls that need readable parsing.')
+    readable_todo.set_defaults(func=commands.to_readable)
+
     args = parser.parse_args()
     return args
 

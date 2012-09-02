@@ -42,6 +42,18 @@ class AdminApi(object):
 
         return table
 
+    def to_readable(self):
+        """Return a list of urls that we need to parse for content."""
+        segment = 'readable/todo'
+        req = requests.get(self._build_url(segment))
+        data = json.loads(req.text)
+        urls = data.get('urls')
+
+        t = self._build_table('username', 'imported', 'url')
+        for u in urls:
+            t.add_row([u['username'], u['stored'], u['url'].strip(" ")])
+        print(t)
+
     def invite_status(self):
         """Fetch the list of users and their invite counts."""
         segment = "accounts/invites"
