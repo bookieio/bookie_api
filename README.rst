@@ -35,10 +35,19 @@ Commands
     # check your configuration by making a ping request
     $ bookie ping
 
-    # list the users and their number of invites
+    # Invite commands
     $ bookie invite list
 
     # set 'someuser' to have 10 invites
     $ bookie invite set -u someuser -i 10
+
+    # Import commands
+    $ bookie import list
+
+    # User Commands
+    $ bookie user list
+    $ bookie user add -u testing -e testing@gmail.com
+    $ bookie user delete -u testing
+
 
 .. _Bookie: http://github.com/mitechie/Bookie
