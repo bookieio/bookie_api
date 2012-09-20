@@ -1,4 +1,5 @@
 from bookie_api.api import AdminApi
+from bookie_api.api import BmarkApi
 from bookie_api.api import UserApi
 
 
@@ -54,3 +55,19 @@ def del_user(cfg, args):
     """Remove a user from the system."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
     api.del_user(args.username)
+
+
+def del_bookmark(cfg, args):
+    """Delete a bookmark from the system.
+
+    Admins can specify a username with --username flag.
+
+    """
+    api = BmarkApi(cfg.api_url, cfg.username, cfg.api_key)
+    username = cfg.username
+    is_admin = False
+    if args.username:
+        username = args.username
+        is_admin = True
+
+    api.delete(username, args.hash_id, is_admin=is_admin)

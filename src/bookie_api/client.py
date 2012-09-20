@@ -82,6 +82,19 @@ def parse_args():
     parser_ping = subparsers.add_parser('ping')
     parser_ping.set_defaults(func=commands.ping)
 
+    # add a bmark subcommand
+    bmark_invites = subparsers.add_parser('bmark')
+    bmarks = bmark_invites.add_subparsers()
+
+    bmark_del = bmarks.add_parser('delete',
+        help='Delete a bmark from the system.')
+    bmark_del.add_argument('hash_id', action='store', default=None,
+            help='Hash id of the bookmark to delete.')
+    bmark_del.add_argument('-u', '--username', action='store', default=None,
+            help='Delete this bookmark from the specified user.')
+
+    bmark_del.set_defaults(func=commands.del_bookmark)
+
     # add an invite subcommand
     parser_invites = subparsers.add_parser('invite')
     invites = parser_invites.add_subparsers()

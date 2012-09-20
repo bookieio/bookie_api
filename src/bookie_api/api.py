@@ -137,6 +137,51 @@ class AdminApi(object):
             print data['message']
 
 
+class BmarkApi(object):
+    """Wrapper for Bmark specific Api calls."""
+    apikey = None
+    apiurl = None
+    username = None
+
+    def __init__(self, apiurl, username, apikey):
+        """Init the admin handler. Apikey is required.
+
+        :param apikey: string that's the user's api key
+
+        """
+        self.apikey = apikey
+        self.username = username
+        self.apiurl = apiurl
+
+    def _build_url(self, segment):
+        """Generate the api url given the call we want to do."""
+        return "{0}/{1}?api_key={2}".format(self.apiurl, segment, self.apikey)
+
+    def delete(self, username, hash_id, is_admin=False):
+        """Delete the user via the api call."""
+        if not is_admin:
+            segment = "{username}/bmark/{hash_id}"
+        else:
+            segment = "a/bmark/{username}/{hash_id}"
+
+        print self._build_url(segment.format(
+            username=username,
+            hash_id=hash_id,
+        ))
+
+        req = requests.delete(self._build_url(segment.format(
+            username=username,
+            hash_id=hash_id,
+        )))
+
+        data = json.loads(req.text)
+        if data.get('message', False):
+            print "Delete Results: " + data.get('message',
+                'failure to load message from response')
+        else:
+            print "Delete Results ERROR: " + data.get('error',
+                'failure to load message from response')
+
 
 class UserApi(object):
     """Wrapper for User specific Api calls."""
@@ -169,3 +214,5 @@ class UserApi(object):
         else:
             print "Ping Results ERROR: " + data.get('error',
                 'failure to load message from response')
+
+
