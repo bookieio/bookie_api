@@ -89,10 +89,22 @@ class AdminApi(object):
         data = json.loads(req.text)
         imports = data.get('imports')
 
-        t = self._build_table('status', 'username', 'file_path')
+        t = self._build_table('id', 'status', 'username', 'file_path')
         for i in imports:
-            t.add_row([i['status'], i['username'], i['file_path']])
+            t.add_row([i['id'], i['status'], i['username'], i['file_path']])
 
+        print(t)
+
+    def import_reset(self, import_id):
+        """Reset the specified import"""
+        segment = "imports/reset/{0}".format(import_id)
+        req = requests.post(self._build_url(segment))
+        data = json.loads(req.text)
+        imp = data.get('import')
+
+        t = self._build_table('id', 'status', 'username', 'file_path')
+        t.add_row(
+            [imp['id'], imp['status'], imp['username'], imp['file_path']])
         print(t)
 
     def user_list(self):
@@ -176,10 +188,12 @@ class BmarkApi(object):
 
         data = json.loads(req.text)
         if data.get('message', False):
-            print "Delete Results: " + data.get('message',
+            print "Delete Results: " + data.get(
+                'message',
                 'failure to load message from response')
         else:
-            print "Delete Results ERROR: " + data.get('error',
+            print "Delete Results ERROR: " + data.get(
+                'error',
                 'failure to load message from response')
 
 
@@ -209,10 +223,10 @@ class UserApi(object):
         req = requests.get(self._build_url(segment))
         data = json.loads(req.text)
         if data.get('success', False):
-            print "Ping Results: " + data.get('message',
+            print "Ping Results: " + data.get(
+                'message',
                 'failure to load message from response')
         else:
-            print "Ping Results ERROR: " + data.get('error',
+            print "Ping Results ERROR: " + data.get(
+                'error',
                 'failure to load message from response')
-
-

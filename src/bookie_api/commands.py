@@ -39,6 +39,12 @@ def import_list(cfg, args):
     api.import_list()
 
 
+def import_reset(cfg, args):
+    """Reset an import back to reprocess"""
+    api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
+    api.import_reset(args.id)
+
+
 def user_list(cfg, args):
     """List the users in the system."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)

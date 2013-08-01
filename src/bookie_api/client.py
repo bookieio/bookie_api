@@ -74,8 +74,10 @@ def parse_args():
 
     """
     parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument('--version',
-        action='version', version=VERSION)
+    parser.add_argument(
+        '--version',
+        action='version',
+        version=VERSION)
 
     subparsers = parser.add_subparsers(help='sub-command help')
 
@@ -86,12 +88,19 @@ def parse_args():
     bmark_invites = subparsers.add_parser('bmark')
     bmarks = bmark_invites.add_subparsers()
 
-    bmark_del = bmarks.add_parser('delete',
+    bmark_del = bmarks.add_parser(
+        'delete',
         help='Delete a bmark from the system.')
-    bmark_del.add_argument('hash_id', action='store', default=None,
-            help='Hash id of the bookmark to delete.')
-    bmark_del.add_argument('-u', '--username', action='store', default=None,
-            help='Delete this bookmark from the specified user.')
+    bmark_del.add_argument(
+        'hash_id',
+        action='store',
+        default=None,
+        help='Hash id of the bookmark to delete.')
+    bmark_del.add_argument(
+        '-u', '--username',
+        action='store',
+        default=None,
+        help='Delete this bookmark from the specified user.')
 
     bmark_del.set_defaults(func=commands.del_bookmark)
 
@@ -99,20 +108,27 @@ def parse_args():
     parser_invites = subparsers.add_parser('invite')
     invites = parser_invites.add_subparsers()
 
-    invite_list = invites.add_parser('list',
+    invite_list = invites.add_parser(
+        'list',
         help='List the users and their invite counts.')
-    invite_list.add_argument('-u', '--username', action='store', default=None,
-            help='Pull the invite count for the specified user.')
+    invite_list.add_argument(
+        '-u', '--username',
+        action='store',
+        default=None,
+        help='Pull the invite count for the specified user.')
     invite_list.set_defaults(func=commands.invite_list)
 
-    invite_set = invites.add_parser('set',
+    invite_set = invites.add_parser(
+        'set',
         help='Set the number of invites a user has')
-    invite_set.add_argument('--username', '-u',
+    invite_set.add_argument(
+        '--username', '-u',
         dest='username',
         action='store',
         default=None,
         help='The username to set an invite count to.')
-    invite_set.add_argument('--invites', '-i',
+    invite_set.add_argument(
+        '--invites', '-i',
         dest='invite_ct',
         action='store',
         default=None,
@@ -122,27 +138,44 @@ def parse_args():
     # Add an import subcommand.
     parser_imports = subparsers.add_parser('import')
     imports = parser_imports.add_subparsers()
-    import_list = imports.add_parser('list',
+
+    import_list = imports.add_parser(
+        'list',
         help='List the imports.')
     import_list.set_defaults(func=commands.import_list)
+
+    import_reset = imports.add_parser(
+        'reset',
+        help='Reset an import to start again.')
+    import_reset.add_argument(
+        '--id', '-i',
+        dest='id',
+        action='store',
+        default=None,
+        help='Which id of the import to reset?')
+    import_reset.set_defaults(func=commands.import_reset)
 
     # Add space for a user subcommand.
     parser_users = subparsers.add_parser('user')
     users = parser_users.add_subparsers()
 
-    user_list = users.add_parser('list',
+    user_list = users.add_parser(
+        'list',
         help='List the users.')
     user_list.set_defaults(func=commands.user_list)
 
-    users_add = users.add_parser('add',
+    users_add = users.add_parser(
+        'add',
         help='Add a new user to the system manually.')
-    users_add.add_argument('--username', '-u',
+    users_add.add_argument(
+        '--username', '-u',
         dest='username',
         action='store',
         default=None,
         required=True,
         help='The username of the new user.')
-    users_add.add_argument('--email', '-e',
+    users_add.add_argument(
+        '--email', '-e',
         dest='email',
         action='store',
         default=None,
@@ -150,9 +183,11 @@ def parse_args():
         help='The email address for the new user.')
     users_add.set_defaults(func=commands.user_add)
 
-    users_del = users.add_parser('delete',
+    users_del = users.add_parser(
+        'delete',
         help='Remove a user from the system via admin api.')
-    users_del.add_argument('--username', '-u',
+    users_del.add_argument(
+        '--username', '-u',
         dest='username',
         action='store',
         default=None,
@@ -163,7 +198,8 @@ def parse_args():
     # add an invite subcommand
     parser_readable = subparsers.add_parser('readable')
     readable = parser_readable.add_subparsers()
-    readable_todo = readable.add_parser('todo',
+    readable_todo = readable.add_parser(
+        'todo',
         help='List of the urls that need readable parsing.')
     readable_todo.set_defaults(func=commands.to_readable)
 
