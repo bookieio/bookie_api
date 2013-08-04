@@ -54,6 +54,18 @@ class AdminApi(object):
             t.add_row([u['username'], u['stored'], u['url'].strip(" ")])
         print(t)
 
+    def readable_reindex(self):
+        """Reindex all bookmarks in the system."""
+        segment = 'readable/reindex'
+        req = requests.get(self._build_url(segment))
+        data = json.loads(req.text)
+        success = data.get('success')
+
+        if success:
+            print "Started"
+        else:
+            print "Error: " + str(success)
+
     def invite_status(self):
         """Fetch the list of users and their invite counts."""
         segment = "accounts/invites"

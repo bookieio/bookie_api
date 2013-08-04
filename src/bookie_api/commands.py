@@ -21,6 +21,12 @@ def to_readable(cfg, args):
     api.to_readable()
 
 
+def readable_reindex(cfg, args):
+    """Reindex all the bookmarks in the system."""
+    api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
+    api.readable_reindex()
+
+
 def invite_list(cfg, args):
     """Handle the invite list call."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)

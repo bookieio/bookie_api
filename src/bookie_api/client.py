@@ -202,6 +202,10 @@ def parse_args():
         'todo',
         help='List of the urls that need readable parsing.')
     readable_todo.set_defaults(func=commands.to_readable)
+    readable_reindex = readable.add_parser(
+        'reindex',
+        help='Rebuild the fulltext index of bookmark content.')
+    readable_reindex.set_defaults(func=commands.readable_reindex)
 
     args = parser.parse_args()
     return args
