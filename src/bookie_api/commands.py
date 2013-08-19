@@ -15,11 +15,18 @@ def ping(cfg, args):
 # ###############
 # Admin Commands
 # ###############
+def applog(cfg, args):
+    """Load the applog entries."""
+    api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
+    api.applog(
+       args.days,
+       args.status,
+       args.filter)
+
 def to_readable(cfg, args):
     """Check the list of urls we need to readable parse still."""
     api = AdminApi(cfg.api_url, cfg.username, cfg.api_key)
     api.to_readable()
-
 
 def readable_reindex(cfg, args):
     """Reindex all the bookmarks in the system."""

@@ -5,13 +5,10 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 
 
-version = '0.4.5'
+version = '0.4.6'
 
 
 install_requires = [
-    # List your project dependencies here.
-    # For more details, see:
-    # http://packages.python.org/distribute/setuptools.html#declaring-dependencies
     'requests',
     'PrettyTable',
 ]
@@ -23,12 +20,12 @@ tests_require = [
 ]
 
 
-setup(name='bookie_api',
+setup(
+    name='bookie_api',
     version=version,
     description="Api and command line client for Bookie",
     long_description=README,
     classifiers=[
-      # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     ],
     keywords='bookmarks api client command line',
     author='Rick Harding',
@@ -36,7 +33,7 @@ setup(name='bookie_api',
     url='http://docs.bmark.us',
     license='AGPL',
     packages=find_packages('src'),
-    package_dir = {'': 'src'},
+    package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,

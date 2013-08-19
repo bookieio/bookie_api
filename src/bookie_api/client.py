@@ -84,6 +84,30 @@ def parse_args():
     parser_ping = subparsers.add_parser('ping')
     parser_ping.set_defaults(func=commands.ping)
 
+    # add an applog subcommand
+    parser_applog = subparsers.add_parser('applog')
+    applog = parser_applog.add_subparsers()
+
+    log_list = applog.add_parser(
+        'list',
+        help='List the recent applog entries.')
+    log_list.add_argument(
+        '-d', '--days',
+        action='store',
+        default=1,
+        help='How many days of logs to fetch.')
+    log_list.add_argument(
+        '-s', '--status',
+        action='store',
+        default=None,
+        help='What log status to filter down to.')
+    log_list.add_argument(
+        '-f', '--filter',
+        action='store',
+        default=None,
+        help='Filter log messages for the text.')
+    log_list.set_defaults(func=commands.applog)
+
     # add a bmark subcommand
     bmark_invites = subparsers.add_parser('bmark')
     bmarks = bmark_invites.add_subparsers()

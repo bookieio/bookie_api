@@ -3,6 +3,7 @@
 """
 import json
 import requests
+from urllib import urlencode
 
 from prettytable import PrettyTable
 
@@ -24,9 +25,24 @@ class AdminApi(object):
         apiurl = "{apiurl}/a".format(apiurl=apiurl)
         self.apiurl = apiurl
 
-    def _build_url(self, segment):
+    def _build_url(self, segment, data=None):
         """Generate the api url given the call we want to do."""
-        return "{0}/{1}?api_key={2}".format(self.apiurl, segment, self.apikey)
+        if data:
+            remove = []
+            # First remove any None values from the qs.
+            for key, val in data.iteritems():
+                if val is None:
+                    remove.append(key)
+            for key in remove:
+                del data[key]
+            data['api_key'] = self.apikey
+        else:
+            data = {
+                'api_key': self.apikey
+
+            }
+        qs = urlencode(data)
+        return "{0}/{1}?{2}".format(self.apiurl, segment, qs)
 
     @classmethod
     def _build_table(cls, *args):
@@ -41,6 +57,33 @@ class AdminApi(object):
         table.align = 'l'
 
         return table
+
+    def applog(self, days, status, message_filter):
+        """Fetch the applog entries we want to see."""
+        segment = 'applog/list'
+        req = requests.get(
+            self._build_url(
+                segment, {
+                    'days': days,
+                    'status': status,
+                    'message': message_filter
+                }
+            )
+        )
+
+        data = json.loads(req.text)
+        if req.status_code != 200:
+            print data.get('error')
+        else:
+            logs = data['logs']
+            t = self._build_table('user', 'status', 'message', 'payload')
+            for l in logs:
+                t.add_row([
+                    l['user'],
+                    l['status'],
+                    l['message'],
+                    l['payload']])
+            print t
 
     def to_readable(self):
         """Return a list of urls that we need to parse for content."""
